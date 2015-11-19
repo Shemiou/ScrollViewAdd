@@ -29,34 +29,37 @@
         _scrollView.bounces = NO;
         [_scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewTapAction:)]];
         
-        
-        //设置scrollview的属性
-        CGFloat scroll_width = _scrollView.frame.size.width;
-        CGFloat scroll_height = _scrollView.frame.size.height;
-        
-        _scrollView.contentSize = CGSizeMake(scroll_width * (_images.count + 2),_scrollView.frame.size.height);
-        
-        
-        for (int i = 0; i < _images.count + 2; i++) {
-            
-            UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(i*scroll_width, 0, scroll_width, scroll_height)];
-            
-            if (i == 0) {
-                imageview.image = [UIImage imageNamed:_images[_images.count-1]];
-            }else if (i == _images.count+1){
-                imageview.image = [UIImage imageNamed:_images[0]];
-            }else{
-                imageview.image = [UIImage imageNamed:_images[i-1]];
-            }
-            
-            [_scrollView addSubview:imageview];
-        }
-        
-        [_scrollView setContentOffset:CGPointMake(scroll_width, 0)];
-        
-        
+        [self createImageViewWithLocalImageAarray];
     }
     return _scrollView;
+}
+
+
+- (void)createImageViewWithLocalImageAarray{
+    
+    //设置scrollview的属性
+    CGFloat scroll_width = _scrollView.frame.size.width;
+    CGFloat scroll_height = _scrollView.frame.size.height;
+    
+    _scrollView.contentSize = CGSizeMake(scroll_width * (_images.count + 2),_scrollView.frame.size.height);
+    
+    
+    for (int i = 0; i < _images.count + 2; i++) {
+        
+        UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(i*scroll_width, 0, scroll_width, scroll_height)];
+        
+        if (i == 0) {
+            imageview.image = [UIImage imageNamed:_images[_images.count-1]];
+        }else if (i == _images.count+1){
+            imageview.image = [UIImage imageNamed:_images[0]];
+        }else{
+            imageview.image = [UIImage imageNamed:_images[i-1]];
+        }
+        
+        [_scrollView addSubview:imageview];
+    }
+    
+    [_scrollView setContentOffset:CGPointMake(scroll_width, 0)];
 }
 
 - (UIPageControl *)pageControl{
